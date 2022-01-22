@@ -1,0 +1,38 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<p>
+  <button @onclick="Click" class="btn btn-outline-primary">Check if @@ref is null</button>
+</p>
+@Msg
+
+<br />
+
+@if (Show) {
+  <SurveyPrompt Title="How is Blazor working for you?" @ref="_survey" />
+}
+
+
+@code {
+
+  private SurveyPrompt _survey { get; set; }
+  public bool Show { get; set; }
+  private string Msg { get; set; } = "";
+
+  protected override async Task OnInitializedAsync() {
+    await Task.Delay(10000);
+    Show = true;
+  }
+
+  private void Click() {
+    if (_survey != null) {
+      Msg = "Not null";
+    } else {
+      Msg = "Null";
+    }
+  }
+
+}
